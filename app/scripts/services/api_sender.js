@@ -9,21 +9,21 @@
  */
 angular.module('visualstApp')
   .service('apiSender', function ($http, $cookies) {
-    
+
     // AngularJS will instantiate a singleton by calling "new" on this function
-	
+
     // initial
     	var self = this;
     	var api_store_url = 'http://www.arvidapi.com/';
-    	self.access_token = ''; 
+    	self.access_token = '';
 
    	// send api request : url encoded request
    		self.sendAPIRequest_url = function(httpMethod , APIMethod, data) {
 
-   			var req = {   				
+   			var req = {
           method : httpMethod ,
-   				url : api_store_url + APIMethod , 
-   				data : data , 
+   				url : api_store_url + APIMethod ,
+   				data : data ,
           transformRequest: function(obj) {
               var str = [];
               for(var p in obj)
@@ -42,15 +42,29 @@ angular.module('visualstApp')
         self.access_token = $cookies.get('access_token');
 
         var req = {
-          method : httpMethod , 
+          method : httpMethod ,
           url : api_store_url + APIMethod ,
-          data : data , 
+          data : data ,
           headers : {
             'Authorization': self.access_token
           }
         };
         return $http(req);
       };
+    // send api request : json request  -- authentication require
+    self.sendAPIRequest_json = function(httpMethod , APIMethod , data) {
 
+      self.access_token = $cookies.get('access_token');
+
+      var req = {
+        method : httpMethod ,
+        url : api_store_url + APIMethod ,
+        data : data ,
+        headers : {
+          //'Authorization': self.access_token
+        }
+      };
+      return $http(req);
+    };
 
 });
