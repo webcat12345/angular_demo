@@ -26,7 +26,7 @@ angular.module('visualstApp')
 
 	// register button click
 		$scope.DoRegister = function($event) {
-			authentication.registerAction($scope.user.firstname , $scope.user.lastname , $scope.user.email , 
+			authentication.registerAction($scope.user.firstname , $scope.user.lastname , $scope.user.email ,
 				$scope.user.confirm_email , $scope.user.password , $scope.user.confirm_password , function(res){
 
 				if (res) {
